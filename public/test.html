@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test durchführen – Kompetenzerfassung Online</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <p class="site-title"><a href="index.html">Kompetenzerfassung Online</a><span class="badge">BETA</span></p>
+      <p class="site-tagline">Testdurchführung</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>An einem Test teilnehmen</h1>
+
+    <!-- Schritt 1: Zugangscode eingeben -->
+    <section class="panel" id="start-panel" aria-labelledby="start-heading">
+      <h2 id="start-heading">Zugangscode eingeben</h2>
+      <p class="muted mt-0">Den Code hast du von deiner Lehrkraft erhalten.
+         Die Teilnahme ist anonym – es werden keine Namen gespeichert.</p>
+      <form id="start-form">
+        <label for="access-code">Zugangscode</label>
+        <input type="text" id="access-code" name="access-code" required
+               autocomplete="off" autocapitalize="characters" spellcheck="false"
+               placeholder="z. B. ZFH2VVKZ">
+        <button type="submit">Test starten</button>
+        <p class="status" id="start-status" role="alert" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- Schritt 2: Fragen beantworten -->
+    <section class="panel hidden" id="quiz-panel" aria-labelledby="quiz-heading">
+      <h2 id="quiz-heading"></h2>
+      <p class="muted" id="progress-text" aria-live="polite"></p>
+      <div class="progress" role="progressbar" aria-labelledby="progress-text">
+        <div id="progress-bar"></div>
+      </div>
+      <form id="question-form">
+        <fieldset id="question-fieldset">
+          <legend id="question-text"></legend>
+          <div id="options"></div>
+        </fieldset>
+        <div class="nav-buttons">
+          <button type="button" class="secondary" id="prev-btn">← Zurück</button>
+          <button type="button" id="next-btn">Weiter →</button>
+          <button type="button" id="submit-btn" class="hidden">Test abschließen</button>
+        </div>
+        <p class="status" id="save-status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- Schritt 3: Abschluss-Bestätigung -->
+    <section class="panel hidden" id="done-panel" aria-labelledby="done-heading">
+      <h2 id="done-heading" tabindex="-1">Test abgeschlossen ✓</h2>
+      <p id="done-text"></p>
+      <p class="muted">Du kannst dieses Fenster jetzt schließen.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <span>Kompetenzerfassung Online · Beta · Testprojekt von Henry Pratsch</span>
+      <a href="index.html">Startseite</a>
+      <a href="/docs">API-Dokumentation</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="test.js"></script>
+</body>
+</html>

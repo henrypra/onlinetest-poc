@@ -1,0 +1,616 @@
+openapi: 3.1.0
+info:
+  title: Kompetenzerfassung Online (Beta)
+  description: Webbasiertes Tool zur Durchführung von Onlinetests zur Kompetenzerfassung.
+    Teilnahme anonym per Zugangscode. Beta-Version – ein Testprojekt von Henry Pratsch.
+  contact:
+    name: Henry Pratsch
+  version: 0.2.0
+paths:
+  /api/tests:
+    get:
+      tags:
+      - tests
+      summary: List Tests
+      description: Alle Tests (Admin-Sicht).
+      operationId: list_tests_api_tests_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TestSummary'
+                type: array
+                title: Response List Tests Api Tests Get
+    post:
+      tags:
+      - tests
+      summary: Create Test
+      description: Neuen Test anlegen, Zugangscode wird generiert.
+      operationId: create_test_api_tests_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TestCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/tests/{test_id}:
+    get:
+      tags:
+      - tests
+      summary: Get Test
+      description: Test inklusive aller Fragen (Admin-Sicht).
+      operationId: get_test_api_tests__test_id__get
+      parameters:
+      - name: test_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Test Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/tests/{test_id}/items:
+    post:
+      tags:
+      - tests
+      summary: Add Item
+      description: Multiple-Choice-Frage zu einem Test hinzufügen.
+      operationId: add_item_api_tests__test_id__items_post
+      parameters:
+      - name: test_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Test Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCreate'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/tests/{test_id}/results:
+    get:
+      tags:
+      - tests
+      summary: Get Results
+      description: Ergebnisse eines Tests, Teilnehmer:innen nur als anonyme IDs.
+      operationId: get_results_api_tests__test_id__results_get
+      parameters:
+      - name: test_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Test Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestResults'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/attempts:
+    post:
+      tags:
+      - attempts
+      summary: Start Attempt
+      description: Testdurchlauf per Zugangscode starten. Fragen kommen ohne Lösungen
+        zurück.
+      operationId: start_attempt_api_attempts_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttemptStart'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttemptRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/attempts/{attempt_id}:
+    get:
+      tags:
+      - attempts
+      summary: Get Attempt
+      description: Durchlauf inkl. bisheriger Antworten, z. B. für den Wiedereinstieg.
+      operationId: get_attempt_api_attempts__attempt_id__get
+      parameters:
+      - name: attempt_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Attempt Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttemptRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/attempts/{attempt_id}/answers:
+    patch:
+      tags:
+      - attempts
+      summary: Save Answer
+      description: Einzelne Antwort speichern bzw. überschreiben (Zwischenspeicherung).
+      operationId: save_answer_api_attempts__attempt_id__answers_patch
+      parameters:
+      - name: attempt_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Attempt Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnswerSave'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnswerRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/attempts/{attempt_id}/submit:
+    post:
+      tags:
+      - attempts
+      summary: Submit Attempt
+      description: Durchlauf abschließen; der Score wird serverseitig berechnet.
+      operationId: submit_attempt_api_attempts__attempt_id__submit_post
+      parameters:
+      - name: attempt_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Attempt Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttemptResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/health:
+    get:
+      tags:
+      - betrieb
+      summary: Health
+      description: Health-Check für Monitoring.
+      operationId: health_api_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    AnswerRead:
+      properties:
+        item_id:
+          type: integer
+          title: Item Id
+        selected_option:
+          type: integer
+          title: Selected Option
+      type: object
+      required:
+      - item_id
+      - selected_option
+      title: AnswerRead
+    AnswerSave:
+      properties:
+        item_id:
+          type: integer
+          title: Item Id
+        selected_option:
+          type: integer
+          minimum: 0.0
+          title: Selected Option
+      type: object
+      required:
+      - item_id
+      - selected_option
+      title: AnswerSave
+    AttemptRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        test_id:
+          type: integer
+          title: Test Id
+        test_title:
+          type: string
+          title: Test Title
+        started_at:
+          type: string
+          format: date-time
+          title: Started At
+        submitted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Submitted At
+        items:
+          items:
+            $ref: '#/components/schemas/ItemPublic'
+          type: array
+          title: Items
+        answers:
+          items:
+            $ref: '#/components/schemas/AnswerRead'
+          type: array
+          title: Answers
+      type: object
+      required:
+      - id
+      - test_id
+      - test_title
+      - started_at
+      - submitted_at
+      - items
+      - answers
+      title: AttemptRead
+    AttemptResult:
+      properties:
+        id:
+          type: integer
+          title: Id
+        submitted_at:
+          type: string
+          format: date-time
+          title: Submitted At
+        score:
+          type: integer
+          title: Score
+        max_score:
+          type: integer
+          title: Max Score
+      type: object
+      required:
+      - id
+      - submitted_at
+      - score
+      - max_score
+      title: AttemptResult
+    AttemptStart:
+      properties:
+        access_code:
+          type: string
+          maxLength: 50
+          minLength: 1
+          title: Access Code
+      type: object
+      required:
+      - access_code
+      title: AttemptStart
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ItemCreate:
+      properties:
+        question:
+          type: string
+          maxLength: 2000
+          minLength: 1
+          title: Question
+        options:
+          items:
+            type: string
+          type: array
+          maxItems: 10
+          minItems: 2
+          title: Options
+        correct_option:
+          type: integer
+          minimum: 0.0
+          title: Correct Option
+      type: object
+      required:
+      - question
+      - options
+      - correct_option
+      title: ItemCreate
+    ItemPublic:
+      properties:
+        id:
+          type: integer
+          title: Id
+        position:
+          type: integer
+          title: Position
+        question:
+          type: string
+          title: Question
+        options:
+          items:
+            type: string
+          type: array
+          title: Options
+      type: object
+      required:
+      - id
+      - position
+      - question
+      - options
+      title: ItemPublic
+    ItemRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        position:
+          type: integer
+          title: Position
+        question:
+          type: string
+          title: Question
+        options:
+          items:
+            type: string
+          type: array
+          title: Options
+        correct_option:
+          type: integer
+          title: Correct Option
+      type: object
+      required:
+      - id
+      - position
+      - question
+      - options
+      - correct_option
+      title: ItemRead
+    ResultEntry:
+      properties:
+        attempt_id:
+          type: integer
+          title: Attempt Id
+        started_at:
+          type: string
+          format: date-time
+          title: Started At
+        submitted_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Submitted At
+        score:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Score
+        max_score:
+          type: integer
+          title: Max Score
+      type: object
+      required:
+      - attempt_id
+      - started_at
+      - submitted_at
+      - score
+      - max_score
+      title: ResultEntry
+    TestCreate:
+      properties:
+        title:
+          type: string
+          maxLength: 200
+          minLength: 1
+          title: Title
+        description:
+          type: string
+          maxLength: 2000
+          title: Description
+          default: ''
+      type: object
+      required:
+      - title
+      title: TestCreate
+    TestRead:
+      properties:
+        id:
+          type: integer
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          type: string
+          title: Description
+        access_code:
+          type: string
+          title: Access Code
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        items:
+          items:
+            $ref: '#/components/schemas/ItemRead'
+          type: array
+          title: Items
+      type: object
+      required:
+      - id
+      - title
+      - description
+      - access_code
+      - created_at
+      - items
+      title: TestRead
+    TestResults:
+      properties:
+        test_id:
+          type: integer
+          title: Test Id
+        test_title:
+          type: string
+          title: Test Title
+        max_score:
+          type: integer
+          title: Max Score
+        attempts:
+          items:
+            $ref: '#/components/schemas/ResultEntry'
+          type: array
+          title: Attempts
+        submitted_count:
+          type: integer
+          title: Submitted Count
+        average_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Average Score
+        score_distribution:
+          additionalProperties:
+            type: integer
+          type: object
+          title: Score Distribution
+      type: object
+      required:
+      - test_id
+      - test_title
+      - max_score
+      - attempts
+      - submitted_count
+      - average_score
+      - score_distribution
+      title: TestResults
+    TestSummary:
+      properties:
+        id:
+          type: integer
+          title: Id
+        title:
+          type: string
+          title: Title
+        access_code:
+          type: string
+          title: Access Code
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        item_count:
+          type: integer
+          title: Item Count
+      type: object
+      required:
+      - id
+      - title
+      - access_code
+      - created_at
+      - item_count
+      title: TestSummary
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError

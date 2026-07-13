@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kompetenzerfassung Online</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <p class="site-title"><a href="index.html">Kompetenzerfassung Online</a><span class="badge">BETA</span></p>
+      <p class="site-tagline">Onlinetests für die Kompetenzerfassung von Schülerinnen und Schülern</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Onlinetests im Unterricht</h1>
+    <p class="lead">
+      Lehrkräfte legen Tests an, Schülerinnen und Schüler nehmen anonym per
+      Zugangscode teil. Ergebnisse stehen direkt nach dem Abschluss ausgewertet
+      bereit.
+    </p>
+    <p class="muted">
+      Beta-Version – ein Testprojekt von Henry Pratsch.
+      Die abgebildeten Daten dienen der Demonstration.
+    </p>
+
+    <div class="demo-box">
+      <h2 class="mt-0">Sofort ausprobieren</h2>
+      <p>Ein Beispieltest ist bereits eingerichtet. Zugangscode:</p>
+      <p><span class="code-display">ZFH2VVKZ</span></p>
+      <p>
+        <a href="test.html?code=ZFH2VVKZ"><strong>→ Demo-Test jetzt starten</strong></a>
+        <span class="muted">(5 Fragen, ca. 3 Minuten, keine Registrierung)</span>
+      </p>
+    </div>
+
+    <nav class="card-grid" aria-label="Hauptnavigation">
+      <a class="card" href="test.html">
+        <h2>An einem Test teilnehmen</h2>
+        <p>Mit Zugangscode starten – anonym, ohne Registrierung.
+           Antworten werden nach jedem Klick gespeichert.</p>
+        <span class="cta">Zur Teilnahme →</span>
+      </a>
+      <a class="card" href="admin.html">
+        <h2>Verwaltung (Lehrkräfte)</h2>
+        <p>Tests und Fragen anlegen, Zugangscodes erzeugen,
+           Ergebnisse mit Auswertung einsehen.</p>
+        <span class="cta">Zur Verwaltung →</span>
+      </a>
+    </nav>
+
+    <section class="panel" aria-labelledby="about-heading">
+      <h2 id="about-heading">Gut zu wissen</h2>
+      <ul>
+        <li>Die Teilnahme ist anonym. Es werden keine Namen oder sonstige
+            personenbezogene Daten gespeichert.</li>
+        <li>Antworten werden nach jedem Klick zwischengespeichert – bricht die
+            Verbindung ab, geht nichts verloren.</li>
+        <li>Die Bewertung passiert auf dem Server; die richtigen Antworten
+            werden nie an den Browser übertragen.</li>
+        <li>Für Entwickler:innen gibt es eine dokumentierte
+            <a href="/docs">REST-Schnittstelle</a>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <span>Kompetenzerfassung Online · Beta · Testprojekt von Henry Pratsch</span>
+      <a href="/docs">API-Dokumentation</a>
+      <a href="/api/health">Health-Check</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,28 @@
+# Deployment-Konfiguration für Render.com (Free Tier, keine Kreditkarte nötig).
+#
+# Hinweis Free Tier: Persistente Disks sind im Free-Plan nicht verfügbar –
+# die SQLite-Datei liegt dann im ephemeren Dateisystem und wird bei jedem
+# Deploy/Neustart zurückgesetzt. Für einen Demo-Betrieb ist das okay;
+# für dauerhafte Daten den Starter-Plan mit Disk nutzen (siehe auskommentierter
+# Block) oder regelmäßig per Backup-Skript exportieren (docs/betriebskonzept.md).
+
+services:
+  - type: web
+    name: kompetenzerfassung-online
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.6"
+    # Mit bezahltem Plan: persistente Disk für die SQLite-Datei aktivieren
+    # disk:
+    #   name: data
+    #   mountPath: /data
+    #   sizeGB: 1
+    # und zusätzlich setzen:
+    # envVars:
+    #   - key: DATABASE_URL
+    #     value: sqlite:////data/onlinetest.db

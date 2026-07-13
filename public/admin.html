@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verwaltung – Kompetenzerfassung Online</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <p class="site-title"><a href="index.html">Kompetenzerfassung Online</a><span class="badge">BETA</span></p>
+      <p class="site-tagline">Verwaltung für Lehrkräfte</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Verwaltung</h1>
+    <p class="lead">Tests anlegen, Fragen hinzufügen, Ergebnisse auswerten.</p>
+
+    <!-- Vorhandene Tests -->
+    <section class="panel" aria-labelledby="tests-heading">
+      <h2 id="tests-heading">Vorhandene Tests</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Titel</th>
+              <th scope="col">Zugangscode</th>
+              <th scope="col">Fragen</th>
+              <th scope="col">Aktionen</th>
+            </tr>
+          </thead>
+          <tbody id="test-list-rows">
+            <tr><td colspan="5" class="muted">Lade Tests …</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="status" id="test-list-status" aria-live="polite"></p>
+    </section>
+
+    <!-- Test anlegen -->
+    <section class="panel" aria-labelledby="create-heading">
+      <h2 id="create-heading">Neuen Test anlegen</h2>
+      <form id="create-test-form">
+        <label for="test-title">Titel</label>
+        <input type="text" id="test-title" required maxlength="200"
+               placeholder="z. B. Mathematik Klasse 7 – Brüche">
+        <label for="test-description">Beschreibung (optional)</label>
+        <textarea id="test-description" rows="2" maxlength="2000"></textarea>
+        <button type="submit">Test anlegen</button>
+        <p class="status" id="create-status" role="alert" aria-live="polite"></p>
+      </form>
+      <div id="test-created" class="hidden">
+        <p>Test angelegt. Zugangscode für Schüler:innen:</p>
+        <p><span class="code-display" id="access-code-display"></span></p>
+      </div>
+    </section>
+
+    <!-- Items hinzufügen -->
+    <section class="panel hidden" id="item-panel" aria-labelledby="item-heading">
+      <h2 id="item-heading">Fragen hinzufügen</h2>
+      <p class="muted" id="item-count"></p>
+      <form id="add-item-form">
+        <label for="item-question">Frage</label>
+        <textarea id="item-question" rows="2" required maxlength="2000"></textarea>
+        <label>Antwortoptionen (richtige Antwort links markieren)</label>
+        <div id="option-inputs"></div>
+        <button type="button" class="secondary" id="add-option-btn">+ Option hinzufügen</button>
+        <button type="submit">Frage speichern</button>
+        <p class="status" id="item-status" role="alert" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <!-- Auswertung -->
+    <section class="panel" aria-labelledby="results-heading">
+      <h2 id="results-heading">Auswertung</h2>
+      <form id="results-form">
+        <label for="results-test-select">Test auswählen</label>
+        <select id="results-test-select" required>
+          <option value="">– bitte wählen –</option>
+        </select>
+        <button type="submit">Ergebnisse anzeigen</button>
+        <p class="status" id="results-status" role="alert" aria-live="polite"></p>
+      </form>
+
+      <div id="results-output" class="hidden">
+        <h3 id="results-title"></h3>
+        <p id="results-summary"></p>
+
+        <div id="chart-block" class="hidden">
+          <h4 class="mt-0">Punkteverteilung</h4>
+          <div class="chart" id="results-chart" role="img"></div>
+          <div class="chart-x-labels" id="results-chart-labels" aria-hidden="true"></div>
+          <p class="chart-axis-title" aria-hidden="true">Erreichte Punkte</p>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <caption class="muted">Durchläufe (anonymisiert per ID)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Durchlauf</th>
+                <th scope="col">Gestartet</th>
+                <th scope="col">Status</th>
+                <th scope="col">Score</th>
+              </tr>
+            </thead>
+            <tbody id="results-rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="inner">
+      <span>Kompetenzerfassung Online · Beta · Testprojekt von Henry Pratsch</span>
+      <a href="index.html">Startseite</a>
+      <a href="/docs">API-Dokumentation</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

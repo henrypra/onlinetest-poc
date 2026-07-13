@@ -1,0 +1,370 @@
+/* Kompetenzerfassung Online – zentrales Stylesheet */
+
+:root {
+  --primary: #003063;
+  --primary-light: #0d4a94;
+  --accent: #e10019;
+  --chart: #2a6fc4;         /* Balkendiagramm */
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --text: #1c1e21;
+  --muted: #5b626b;
+  --border: #d6dade;
+  --ok: #1e6b38;
+  --error: #b3261e;
+  --focus: #2a6fc4;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Kopf- und Fußzeile */
+
+.site-header {
+  background: var(--surface);
+  border-top: 5px solid var(--primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header .inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.site-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.site-title a { color: inherit; text-decoration: none; }
+.site-title .badge { margin-left: 0.5rem; }
+
+.site-tagline { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+.site-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.site-footer .inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.site-footer a { color: var(--muted); }
+
+/* Layout */
+
+.container {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+h1 { font-size: 1.65rem; margin: 0.5rem 0 0.25rem; }
+h2 { font-size: 1.2rem; margin-top: 0; }
+h3 { font-size: 1.05rem; }
+
+.lead { font-size: 1.05rem; color: var(--muted); max-width: 60ch; }
+
+.badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  vertical-align: middle;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  padding: 0.12rem 0.4rem;
+  letter-spacing: 0.05em;
+}
+
+a { color: var(--primary); }
+a:hover { color: var(--primary-light); }
+
+/* Karten & Panels */
+
+.card-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin: 1.5rem 0;
+}
+
+.card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+a.card:hover, a.card:focus-visible {
+  border-color: var(--primary);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+}
+
+.card h2, .card h3 { margin: 0 0 0.3rem; color: var(--primary); }
+.card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.card .cta { display: inline-block; margin-top: 0.6rem; font-weight: 600; color: var(--primary); }
+
+section.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem;
+  margin-top: 1.5rem;
+}
+
+/* Demo-Hinweis auf der Startseite */
+.demo-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--primary);
+  border-radius: 10px;
+  padding: 1.1rem 1.4rem;
+  margin: 1.5rem 0;
+}
+
+.demo-box p { margin: 0.35rem 0; }
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.feature-list li {
+  padding-left: 1.6rem;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.feature-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--ok);
+  font-weight: 700;
+}
+
+/* Formulare */
+
+label { display: block; font-weight: 600; margin: 0.85rem 0 0.25rem; }
+
+input[type="text"], textarea, select {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  font: inherit;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+input:focus-visible, textarea:focus-visible, select:focus-visible,
+button:focus-visible, a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+}
+
+button {
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1.2rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+button:hover { background: var(--primary-light); }
+button:disabled { background: var(--muted); cursor: not-allowed; }
+
+button.secondary {
+  background: var(--surface);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+button.secondary:hover { background: #eef3f8; }
+
+button.small {
+  padding: 0.25rem 0.7rem;
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.status { margin-top: 0.75rem; min-height: 1.5rem; font-size: 0.95rem; }
+.status.ok { color: var(--ok); }
+.status.error { color: var(--error); }
+
+/* Testdurchführung */
+
+.progress {
+  background: var(--border);
+  border-radius: 999px;
+  height: 0.55rem;
+  overflow: hidden;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.progress > div {
+  background: var(--primary);
+  height: 100%;
+  width: 0;
+  transition: width 0.25s ease;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  margin: 0;
+}
+
+legend { font-weight: 600; padding: 0 0.4rem; }
+
+.option {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.45rem 0.3rem;
+  border-radius: 6px;
+}
+
+.option:hover { background: var(--bg); }
+.option label { font-weight: normal; margin: 0; flex: 1; cursor: pointer; }
+.option input[type="radio"] { accent-color: var(--primary); }
+
+.nav-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* Tabellen */
+
+.table-wrap { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); }
+th { background: var(--bg); font-size: 0.9rem; }
+caption { caption-side: top; text-align: left; padding-bottom: 0.35rem; }
+
+.code-display {
+  font-family: ui-monospace, "Cascadia Mono", monospace;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.9rem;
+  display: inline-block;
+}
+
+code.inline-code {
+  font-family: ui-monospace, monospace;
+  background: var(--bg);
+  border-radius: 4px;
+  padding: 0.05rem 0.35rem;
+}
+
+/* Diagramm: Punkteverteilung */
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 180px;
+  padding: 0.5rem 0.25rem 0;
+  margin-top: 1rem;
+}
+
+.chart .col {
+  flex: 1;
+  max-width: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+.chart .col .value {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.chart .col .bar {
+  width: 100%;
+  background: var(--chart);
+  border-radius: 4px 4px 0 0;
+  min-height: 2px;
+  transition: background 0.15s ease;
+}
+
+.chart .col:hover .bar { background: var(--primary); }
+.chart .col .bar.zero { background: var(--border); }
+
+.chart-x-labels {
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+  padding-top: 4px;
+}
+
+.chart-x-labels span {
+  flex: 1;
+  max-width: 56px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.chart-axis-title {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
+
+/* Hilfsklassen */
+
+.hidden { display: none; }
+.muted { color: var(--muted); }
+.mt-0 { margin-top: 0; }
