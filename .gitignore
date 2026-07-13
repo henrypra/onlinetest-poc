@@ -1,3 +1,14 @@
+### Python ###
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+### Projekt (lokale SQLite-Datenbank) ###
+*.db
+*.sqlite3
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
@@ -28,3 +39,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+### Lokal (nicht versionieren) ###
+.idea/
