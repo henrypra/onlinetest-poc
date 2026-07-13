@@ -1,4 +1,20 @@
-# Kompetenzerfassung Online
+<div align="center">
+
+# ✓ Kompetenzerfassung Online
+
+**Onlinetests für die Kompetenzerfassung von Schülerinnen und Schülern**
+
+[![Live-Demo](https://img.shields.io/badge/Live--Demo-Render-46e3b7?logo=render&logoColor=white)](https://kompetenzerfassung-online.onrender.com)
+![Python](https://img.shields.io/badge/Python-3.11%2B-3776ab?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-SQLModel-003b57?logo=sqlite&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Beta-e10019)
+
+[**Live-Demo öffnen →**](https://kompetenzerfassung-online.onrender.com)
+
+</div>
+
+---
 
 Kleines webbasiertes Tool, um Onlinetests mit Schulklassen durchzuführen.
 Lehrkräfte legen Tests mit Multiple-Choice-Fragen an, Schüler:innen nehmen
@@ -6,9 +22,21 @@ anonym über einen Zugangscode teil, die Auswertung gibt es direkt danach.
 
 Beta-Version, ein Testprojekt von Henry Pratsch.
 
-**Live-Demo:** https://kompetenzerfassung-online.onrender.com
-
 Technik: Python/FastAPI, SQLModel, SQLite, statisches Frontend ohne Build-Step.
+
+## Screenshots
+
+| Startseite | Testdurchführung |
+|:---:|:---:|
+| ![Startseite](docs/screenshots/startseite.png) | ![Testdurchführung](docs/screenshots/testdurchfuehrung.png) |
+
+<div align="center">
+
+**Auswertung mit Punkteverteilung**
+
+<img src="docs/screenshots/auswertung.png" alt="Auswertung" width="70%">
+
+</div>
 
 ## Lokal starten
 
