@@ -10,7 +10,7 @@
 ![SQLite](https://img.shields.io/badge/SQLite-SQLModel-003b57?logo=sqlite&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Beta-e10019)
 
-[**Live-Demo öffnen →**](https://kompetenzerfassung-online.onrender.com)
+**Live-Demo:** [https://kompetenzerfassung-online.onrender.com](https://kompetenzerfassung-online.onrender.com)
 
 </div>
 
@@ -37,25 +37,6 @@ Technik: Python/FastAPI, SQLModel, SQLite, statisches Frontend ohne Build-Step.
 <img src="docs/screenshots/auswertung.png" alt="Auswertung" width="70%">
 
 </div>
-
-## Lokal starten
-
-Python 3.11 oder neuer wird benötigt.
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
-
-Danach läuft alles unter http://127.0.0.1:8000 – Startseite, Verwaltung
-(`/admin.html`), Teilnahme (`/test.html`) und die API-Doku (`/docs`).
-Die SQLite-Datei `onlinetest.db` wird beim ersten Start angelegt.
-
-Beim ersten Start wird außerdem ein Demo-Test mit dem Zugangscode `ZFH2VVKZ`
-eingerichtet (5 Fragen). Über die Umgebungsvariable `DEMO_ACCESS_CODE` lässt
-sich der Code ändern, ein leerer Wert deaktiviert den Demo-Test.
 
 ## API
 
