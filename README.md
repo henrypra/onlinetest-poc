@@ -6,6 +6,8 @@ anonym über einen Zugangscode teil, die Auswertung gibt es direkt danach.
 
 Beta-Version, ein Testprojekt von Henry Pratsch.
 
+**Live-Demo:** https://kompetenzerfassung-online.onrender.com
+
 Technik: Python/FastAPI, SQLModel, SQLite, statisches Frontend ohne Build-Step.
 
 ## Lokal starten
@@ -60,7 +62,11 @@ Abschluss, Antworten auf fremde Fragen usw.).
 
 ## Deployment
 
-`render.yaml` enthält eine Blueprint-Konfiguration für Render.com (Free Tier
+Die App läuft als Live-Demo auf Render.com:
+https://kompetenzerfassung-online.onrender.com – jeder Push auf `master`
+löst automatisch ein neues Deployment aus.
+
+`render.yaml` enthält die zugehörige Blueprint-Konfiguration (Free Tier
 reicht für Demos, hat aber keine persistente Disk – die Datenbank wird dort
 bei jedem Deploy geleert). Details und die Fly.io-Alternative stehen im
 [Betriebskonzept](docs/betriebskonzept.md); das
